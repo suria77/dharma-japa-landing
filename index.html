@@ -1,0 +1,716 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Dharma Japa</title>
+<meta name="description" content="Dharma Japa is a mantra counter built around the traditional 108-bead mala. Choose a deity, a mantra and a mala, then count by voice, by hand or with your own recording.">
+<meta property="og:title" content="Dharma Japa">
+<meta property="og:description" content="A mantra counter built around the traditional 108-bead mala. Free version and Premium.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="img/t230.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='19' fill='%23F2A01C'/%3E%3Ccircle cx='20' cy='20' r='12' fill='none' stroke='%2314183A' stroke-width='3' stroke-dasharray='2 4.2'/%3E%3C/svg%3E">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Marcellus&family=Tiro+Devanagari+Hindi&display=swap">
+<style>
+/* Layout: pale indigo ground, big type, and the real app screens in dark glass phones that glow against it. The hero fans three phones in front of a slowly turning 108-bead mala. */
+:root{
+  --ground:#F4F5FC;
+  --paper:#FFFFFF;
+  --tint:#E8EBFA;
+  --lilac:#EFEAFB;
+  --warm:#FFEFD2;
+  --ink:#14183A;
+  --ink2:#41466C;
+  --line:#D0D5EC;
+  --saffron:#F2A01C;
+  --saffron-hi:#FFB43F;
+  --saffron-deep:#9A5000;
+  --indigo:#2B3190;
+  --violet:#6A3FD0;
+  --night:#120B2E;
+  --bead:#8A5236;
+  --f-display:'Marcellus','Cormorant Garamond',Georgia,serif;
+  --f-body:'Hanken Grotesk','Helvetica Neue',Arial,sans-serif;
+  --f-deva:'Tiro Devanagari Hindi','Noto Serif Devanagari',Georgia,serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--f-body);font-size:18px;line-height:1.65;-webkit-text-size-adjust:100%}
+img,svg,video{max-width:100%}
+a{color:var(--indigo)}
+h1,h2,h3,h4{font-family:var(--f-display);font-weight:400;color:var(--ink);margin:0;line-height:1.08;letter-spacing:-.005em;text-wrap:balance}
+h1{font-size:clamp(2.6rem,5.6vw,4.6rem)}
+h2{font-size:clamp(2.05rem,3.8vw,3.05rem)}
+h3{font-size:clamp(1.6rem,2.4vw,2.1rem)}
+h4{font-size:1.25rem}
+p{margin:0}
+:focus-visible{outline:3px solid var(--indigo);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1200px,calc(100% - 40px));margin-inline:auto}
+section{padding-block:clamp(56px,8vw,104px)}
+.eyebrow{display:inline-block;font-size:.8rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--saffron-deep)}
+.lead{font-size:clamp(1.15rem,1.7vw,1.35rem);color:var(--ink2);max-width:58ch}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;min-height:56px;padding:.8em 1.7em;border-radius:999px;font-family:var(--f-body);font-weight:700;font-size:1.04rem;text-decoration:none;border:2px solid var(--ink);color:var(--ink);background:transparent;transition:transform .15s ease,background .15s ease,box-shadow .15s ease}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--saffron);border-color:var(--saffron);box-shadow:0 10px 24px -10px rgba(242,160,28,.9)}
+.btn-primary:hover{background:var(--saffron-hi);border-color:var(--saffron-hi)}
+.btn-sm{min-height:44px;padding:.5em 1.2em;font-size:.95rem}
+.btn-row{display:flex;flex-wrap:wrap;gap:14px}
+
+.beads-rule{height:16px;background:radial-gradient(circle at 8px 8px,var(--bead) 5px,transparent 5.6px) 0 0/24px 16px repeat-x;opacity:.5}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:rgba(244,245,252,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-family:var(--f-display);font-size:1.5rem}
+.brand svg{width:34px;height:34px;flex:none}
+.nav-links{display:flex;align-items:center;gap:26px}
+.nav-links a:not(.btn){color:var(--ink);text-decoration:none;font-weight:600;font-size:1rem}
+.nav-links a:not(.btn):hover{color:var(--saffron-deep)}
+@media (max-width:860px){.nav-links a:not(.btn){display:none}}
+
+/* device frame */
+.dev{position:relative;aspect-ratio:1040/1904;width:100%;background:linear-gradient(150deg,#3a2f6e 0%,#120B2E 38%,#0A0620 100%);border-radius:12%/6.5%;padding:2.5%;box-shadow:0 34px 60px -22px rgba(26,15,58,.6),0 8px 18px -6px rgba(26,15,58,.35),inset 0 0 0 1.5px rgba(255,255,255,.2)}
+.dev .in{width:100%;height:100%;border-radius:10%/5.6%;overflow:hidden;background:var(--night)}
+.dev img,.dev video{display:block;width:100%;height:100%;object-fit:cover}
+
+/* hero */
+.hero{padding-block:clamp(32px,5vw,72px) clamp(48px,6vw,88px);background:radial-gradient(60% 75% at 78% 38%,#FFE3B5 0%,rgba(255,227,181,0) 70%),radial-gradient(40% 50% at 8% 0%,#E6DEFB 0%,rgba(230,222,251,0) 70%)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,4vw,64px);align-items:center}
+.hero-copy{display:flex;flex-direction:column;gap:26px;align-items:flex-start}
+.pill{display:inline-flex;align-items:center;gap:9px;padding:8px 16px;border-radius:999px;background:var(--paper);border:1px solid var(--line);font-size:.92rem;font-weight:700;color:var(--ink2);box-shadow:0 4px 14px -8px rgba(20,24,58,.4)}
+.pill i{width:9px;height:9px;border-radius:50%;background:var(--saffron);display:block}
+.hero h1 em{font-style:normal;color:var(--saffron-deep)}
+.assure{display:flex;flex-wrap:wrap;gap:8px 22px;list-style:none;margin:0;padding:0;font-size:.98rem;font-weight:600;color:var(--ink2)}
+.assure li{display:flex;align-items:center;gap:8px}
+.assure li::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--bead);flex:none}
+.fan{position:relative;aspect-ratio:1/1.1;width:100%;max-width:660px;margin-inline:auto}
+.fan>svg{position:absolute;left:-12%;top:0;width:124%;height:auto;aspect-ratio:1;overflow:visible}
+.fan .d{position:absolute}
+.fan .d1{left:0;top:15%;width:33%;transform:rotate(-9deg)}
+.fan .d2{left:50%;top:2%;width:43%;transform:translateX(-50%);z-index:2}
+.fan .d3{right:0;top:17%;width:33%;transform:rotate(9deg)}
+#spin{transform-origin:300px 300px;animation:spin 200s linear infinite}
+.pulse{transform-box:fill-box;transform-origin:center;animation:pulse 3.4s ease-in-out infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.25);opacity:1}}
+@media (max-width:900px){.hero-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:560px){.fan .d1,.fan .d3{width:30%}.fan .d2{width:44%}}
+
+/* facts strip */
+.facts{padding-block:0;margin-top:-28px;position:relative;z-index:3}
+.facts .wrap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));background:var(--paper);border:1px solid var(--line);border-radius:10px;box-shadow:0 24px 50px -30px rgba(20,24,58,.5)}
+.facts div{padding:24px 18px;text-align:center;border-left:1px solid var(--line)}
+.facts div:first-child{border-left:0}
+.facts b{display:block;font-family:var(--f-display);font-weight:400;font-size:clamp(2.3rem,4vw,3.2rem);line-height:1;color:var(--saffron-deep)}
+.facts span{display:block;margin-top:8px;font-size:.95rem;font-weight:700;color:var(--ink2);letter-spacing:.02em}
+@media (max-width:640px){.facts .wrap{grid-template-columns:repeat(2,minmax(0,1fr))}.facts div:nth-child(3){border-left:0}.facts div:nth-child(n+3){border-top:1px solid var(--line)}}
+
+/* tradition */
+.tradition{background:var(--paper);border-block:1px solid var(--line);margin-top:clamp(40px,6vw,72px)}
+.trad-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(28px,5vw,80px);align-items:start}
+.trad-head{display:flex;flex-direction:column;gap:20px}
+.deva{font-family:var(--f-deva);font-size:clamp(5rem,12vw,9rem);line-height:1;color:var(--saffron);margin-bottom:-6px}
+.glossary{display:grid;margin:0}
+.glossary div{padding:20px 0;border-top:1px solid var(--line);display:grid;grid-template-columns:130px minmax(0,1fr);gap:18px}
+.glossary div:last-child{border-bottom:1px solid var(--line)}
+.glossary dt{font-family:var(--f-display);font-size:1.4rem;color:var(--ink)}
+.glossary dt small{display:block;font-family:var(--f-body);font-size:.85rem;font-weight:700;color:var(--saffron-deep);letter-spacing:.04em}
+.glossary dd{margin:0;color:var(--ink2)}
+.scope{margin-top:clamp(40px,6vw,72px);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.scope>div{background:var(--ground);border:1px solid var(--line);border-radius:8px;padding:28px}
+.scope h4{margin-bottom:14px}
+.scope ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.scope li{position:relative;padding-left:34px;color:var(--ink)}
+.scope li::before{content:"";position:absolute;left:0;top:.35em;width:20px;height:20px;border-radius:50%;background:var(--indigo)}
+.scope li::after{content:"";position:absolute;left:6px;top:.62em;width:8px;height:4px;border-left:2.5px solid #fff;border-bottom:2.5px solid #fff;transform:rotate(-45deg)}
+.scope .no li::before{background:#fff;border:2px solid var(--ink2)}
+.scope .no li::after{width:10px;height:0;left:5px;top:.88em;border-left:0;border-bottom:2.5px solid var(--ink2);transform:none}
+@media (max-width:900px){.trad-grid,.scope{grid-template-columns:minmax(0,1fr)}.glossary div{grid-template-columns:minmax(0,1fr);gap:4px}}
+
+/* features */
+.section-head{display:flex;flex-direction:column;gap:16px;margin-bottom:clamp(32px,5vw,56px);max-width:760px}
+.feat{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,5vw,80px);align-items:center;margin-top:clamp(40px,6vw,88px)}
+.feat:first-of-type{margin-top:0}
+.feat.flip .pane{order:2}
+.feat .copy{display:flex;flex-direction:column;gap:16px}
+.feat .copy p{color:var(--ink2)}
+.pane{border-radius:14px;padding:clamp(28px,4vw,52px) 24px;display:grid;place-items:center;background:radial-gradient(circle at 50% 38%,#fff 0%,var(--lilac) 55%,#DCD3F6 100%);border:1px solid var(--line);overflow:hidden}
+.pane.warm{background:radial-gradient(circle at 50% 38%,#fff 0%,var(--warm) 55%,#FFD9A0 100%)}
+.pane .dev{width:min(100%,270px)}
+.pane.trio{display:flex;justify-content:center;gap:0;align-items:center}
+.pane.trio .dev{width:34%;flex:none}
+.pane.trio .dev:nth-child(1){transform:rotate(-7deg) translateX(14%);z-index:1}
+.pane.trio .dev:nth-child(2){width:38%;z-index:2}
+.pane.trio .dev:nth-child(3){transform:rotate(7deg) translateX(-14%);z-index:1}
+.chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:6px 0 0;padding:0}
+.chips li{padding:7px 15px;border-radius:99px;background:var(--paper);border:1px solid var(--line);font-size:.97rem;font-weight:700;color:var(--ink)}
+@media (max-width:900px){.feat{grid-template-columns:minmax(0,1fr)}.feat.flip .pane{order:0}}
+
+/* modes */
+.modes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:clamp(40px,6vw,88px)}
+.mode{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:26px 26px 30px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.mode .pane{padding:26px 16px;border-radius:10px}
+.mode .pane .dev{width:min(100%,190px)}
+.mode h3{font-size:1.6rem;display:flex;align-items:center;gap:12px}
+.mode p{color:var(--ink2)}
+.ico{width:46px;height:46px;border-radius:12px;background:var(--warm);display:grid;place-items:center;color:var(--saffron-deep);flex:none}
+.ico svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+@media (max-width:900px){.modes{grid-template-columns:minmax(0,1fr)}}
+
+/* malas */
+.sw{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:16px 8px}
+.sw li{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;font-size:.92rem;font-weight:700;line-height:1.25}
+.sw i{display:block;width:46px;height:46px;border-radius:50%;background:radial-gradient(circle at 34% 28%,color-mix(in srgb,var(--c) 40%,#fff) 0 13%,var(--c) 48%,color-mix(in srgb,var(--c) 68%,#000) 100%);box-shadow:0 3px 6px rgba(20,24,58,.28)}
+.swgroup h4{font-family:var(--f-body);font-size:.82rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--saffron-deep);margin:18px 0 12px}
+
+/* tutorial */
+.tut{background:var(--night);color:#fff;border-radius:18px;padding:clamp(28px,5vw,64px);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(24px,5vw,72px);align-items:center;background-image:radial-gradient(50% 70% at 85% 30%,rgba(106,63,208,.55),rgba(106,63,208,0))}
+.tut h2,.tut h3{color:#fff}
+.tut p{color:#E4E1F7;font-size:1.15rem}
+.tut .eyebrow{color:var(--saffron-hi)}
+.tut .copy{display:flex;flex-direction:column;gap:18px}
+.tut .dev{width:min(100%,280px);margin-inline:auto}
+.tut .dev video{background:#000}
+@media (max-width:900px){.tut{grid-template-columns:minmax(0,1fr)}}
+
+/* how */
+.how{background:var(--tint)}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;list-style:none;margin:0;padding:0;counter-reset:s}
+.steps li{counter-increment:s;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:30px;display:flex;flex-direction:column;gap:12px}
+.steps li::before{content:counter(s);font-family:var(--f-display);font-size:3.6rem;line-height:1;color:var(--saffron)}
+.steps p{color:var(--ink2)}
+@media (max-width:900px){.steps{grid-template-columns:minmax(0,1fr)}}
+
+/* pricing */
+.plans{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:20px;align-items:stretch}
+.plan{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:clamp(26px,3.5vw,42px);display:flex;flex-direction:column;gap:20px;min-width:0}
+.plan.main{border:2px solid var(--ink);background:linear-gradient(180deg,#fff 0%,#FFF6E4 100%);box-shadow:0 30px 60px -36px rgba(242,160,28,.9)}
+.plan .tag{align-self:flex-start;font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:5px 12px;border-radius:99px;background:var(--ink);color:#fff}
+.plan .tag.soft{background:var(--tint);color:var(--ink)}
+.price{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.price strong{font-family:var(--f-display);font-weight:400;font-size:clamp(3.2rem,6vw,4.8rem);line-height:1}
+.price span{color:var(--ink2);font-weight:700}
+.plan ul{list-style:none;margin:0;padding:0;display:grid;gap:11px}
+.plan li{position:relative;padding-left:30px}
+.plan li::before{content:"";position:absolute;left:3px;top:.45em;width:12px;height:6px;border-left:3px solid var(--indigo);border-bottom:3px solid var(--indigo);transform:rotate(-45deg)}
+.plan .btn{margin-top:auto;width:100%}
+.fine{font-size:.95rem;color:var(--ink2)}
+@media (max-width:900px){.plans{grid-template-columns:minmax(0,1fr)}}
+
+/* faq */
+.faq{display:grid;gap:12px;max-width:860px}
+.faq details{background:var(--paper);border:1px solid var(--line);border-radius:10px}
+.faq summary{list-style:none;cursor:pointer;padding:22px 26px;font-family:var(--f-display);font-size:1.3rem;display:flex;justify-content:space-between;align-items:center;gap:18px;color:var(--ink)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";flex:none;width:34px;height:34px;border-radius:50%;background:var(--warm);color:var(--saffron-deep);display:grid;place-items:center;font-family:var(--f-body);font-size:1.4rem;font-weight:600;line-height:1}
+.faq details[open] summary::after{content:"\2212"}
+.faq details p{padding:0 26px 24px;color:var(--ink2);max-width:68ch}
+
+/* maker */
+.maker{background:var(--paper);border-block:1px solid var(--line)}
+.maker .wrap{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(24px,5vw,72px);align-items:center}
+.maker p{color:var(--ink2)}
+.maker .stack{display:flex;flex-direction:column;gap:16px}
+@media (max-width:900px){.maker .wrap{grid-template-columns:minmax(0,1fr)}}
+
+/* legal */
+.legal-nav{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.legal{max-width:78ch;margin-top:clamp(32px,5vw,56px);padding-top:clamp(28px,4vw,44px);border-top:1px solid var(--line)}
+.legal h3{margin-bottom:6px}
+.legal .upd{color:var(--ink2);font-size:.95rem;margin-bottom:22px}
+.legal h4{margin:26px 0 8px;font-size:1.2rem}
+.legal p,.legal li{color:var(--ink);font-size:1rem;line-height:1.7}
+.legal ul{margin:8px 0 0;padding-left:22px;display:grid;gap:6px}
+
+/* footer */
+footer{padding-block:48px 56px;background:var(--ink);color:#F4F5FC}
+footer .wrap{display:grid;grid-template-columns:minmax(0,1.3fr) repeat(2,minmax(0,.7fr));gap:32px}
+footer a{color:#fff}
+footer h4{font-family:var(--f-body);font-size:.82rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--saffron-hi);margin-bottom:12px}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+footer p{color:#D9DCF0;font-size:.98rem}
+footer .brand{color:#fff;margin-bottom:12px}
+footer .small{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.2);padding-top:22px;font-size:.92rem}
+@media (max-width:760px){footer .wrap{grid-template-columns:minmax(0,1fr)}}
+
+@media (prefers-reduced-motion:reduce){#spin,.pulse{animation:none}html{scroll-behavior:auto}.btn{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Dharma Japa home">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><g fill="#8A5236"><circle cx="20" cy="4" r="3.4" fill="#F2A01C"/><circle cx="26.8" cy="5.4" r="2.2"/><circle cx="32.6" cy="9.4" r="2.2"/><circle cx="36" cy="15.4" r="2.2"/><circle cx="36" cy="22.6" r="2.2"/><circle cx="32.6" cy="28.6" r="2.2"/><circle cx="26.8" cy="32.6" r="2.2"/><circle cx="20" cy="34" r="2.2"/><circle cx="13.2" cy="32.6" r="2.2"/><circle cx="7.4" cy="28.6" r="2.2"/><circle cx="4" cy="22.6" r="2.2"/><circle cx="4" cy="15.4" r="2.2"/><circle cx="7.4" cy="9.4" r="2.2"/><circle cx="13.2" cy="5.4" r="2.2"/></g></svg>
+      Dharma Japa
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#tradition">The practice</a>
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a class="btn btn-primary btn-sm" href="#pricing">Get Premium</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="pill"><i></i> Mantra counter for iPhone, iPad and Android</span>
+      <h1>Count your japa. <em>Keep your attention on the mantra.</em></h1>
+      <p class="lead">Dharma Japa is a mantra counter built around the traditional 108-bead mala. Choose a deity, a mantra and a mala, then count by voice, by hand, or with your own recording.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="https://payhip.com/b/JiEve" target="_blank" rel="noopener">Get Premium <span data-edit="price-short">&euro;12.90</span></a>
+        <a class="btn" href="https://dharma-japa-free.dharmaeterno.com/" target="_blank" rel="noopener">Try the free version</a>
+      </div>
+      <ul class="assure">
+        <li>Installs from your browser</li>
+        <li>Use on 2 devices</li>
+        <li>14-day refund</li>
+      </ul>
+    </div>
+
+    <div class="fan">
+      <svg viewBox="0 0 600 600" aria-hidden="true">
+        <defs>
+          <radialGradient id="gb" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#C98A63"/><stop offset=".55" stop-color="#8A5236"/><stop offset="1" stop-color="#4A2616"/></radialGradient>
+          <radialGradient id="gl" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#FFE3A3"/><stop offset=".5" stop-color="#F2A01C"/><stop offset="1" stop-color="#B25E00"/></radialGradient>
+          <radialGradient id="gh" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#F2A01C" stop-opacity=".6"/><stop offset="1" stop-color="#F2A01C" stop-opacity="0"/></radialGradient>
+        </defs>
+        <g id="spin">
+          <circle cx="300" cy="300" r="240" fill="none" stroke="#B9A48F" stroke-width="1.6"/>
+          <g id="beads"></g>
+        </g>
+      </svg>
+      <div class="d d1"><div class="dev"><div class="in"><img src="img/c238.jpg" alt="Dharma Japa counting with a Rama and Sita video background" decoding="async"></div></div></div>
+      <div class="d d2"><div class="dev"><div class="in"><video src="img/hero.mp4" poster="img/c225.jpg" autoplay muted loop playsinline preload="auto" aria-label="Dharma Japa counting a round of 108 with a video background"></video></div></div></div>
+      <div class="d d3"><div class="dev"><div class="in"><img src="img/t35.jpg" alt="Dharma Japa deity menu with a short note on Krishna" decoding="async"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="facts" aria-label="At a glance">
+  <div class="wrap">
+    <div><b>3</b><span>ways to count</span></div>
+    <div><b>17</b><span>malas to choose</span></div>
+    <div><b>10</b><span>deities with mantras</span></div>
+    <div><b>108</b><span>repetitions per round</span></div>
+  </div>
+</section>
+
+<section class="tradition" id="tradition">
+  <div class="wrap">
+    <div class="trad-grid">
+      <div class="trad-head">
+        <div class="deva" lang="sa" aria-hidden="true">जप</div>
+        <span class="eyebrow">The practice</span>
+        <h2>An old practice, and a small tool to keep count of it.</h2>
+        <p class="lead">Repeating a mantra on a string of beads belongs to the Hindu and yogic traditions of India. Dharma Japa leaves the practice as it is and takes care of the counting.</p>
+      </div>
+      <dl class="glossary">
+        <div><dt>Japa<small>जप</small></dt><dd>The repetition of a mantra, spoken aloud, whispered or kept silent. Practitioners have long counted the repetitions so the mind can rest on the sound.</dd></div>
+        <div><dt>Mala<small>माला</small></dt><dd>A string of 108 beads plus one larger bead. Each bead marks one repetition, and one turn of the string is one round.</dd></div>
+        <div><dt>Sumeru<small>सुमेरु</small></dt><dd>The larger bead where a round begins and ends. Tradition asks you to turn the mala around at this bead instead of crossing it. The app marks the end of the round with a closing bell.</dd></div>
+      </dl>
+    </div>
+
+    <div class="scope">
+      <div>
+        <h4>What Dharma Japa does</h4>
+        <ul>
+          <li>Counts your repetitions by voice, by tap, or with a recording</li>
+          <li>Shows the mala you chose, one bead lit at a time</li>
+          <li>Plays a bell at the halfway point and at the end of each round</li>
+          <li>Offers a tanpura drone, soundscapes and soft video backgrounds</li>
+        </ul>
+      </div>
+      <div class="no">
+        <h4>What it leaves out</h4>
+        <ul>
+          <li>No horoscopes and no predictions</li>
+          <li>No promises about health, money or luck</li>
+          <li>No readings or advice about you</li>
+          <li>No ads and no tracking of your practice</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Features</span>
+      <h2>Everything you need for a round, and nothing in the way.</h2>
+      <p class="lead">These are screens from the app itself.</p>
+    </div>
+
+    <div class="feat">
+      <div class="copy">
+        <span class="eyebrow">Deities</span>
+        <h3>Start with the deity you practise with.</h3>
+        <p>Open the deity menu to read a short note on each one: what the tradition associates them with and which malas devotees usually choose. The notes describe the tradition and make no claims about results.</p>
+        <ul class="chips"><li>Ganesha</li><li>Shiva</li><li>Vishnu</li><li>Krishna</li><li>Rama</li><li>Hanuman</li><li>Buddha</li><li>Lakshmi</li><li>Durga</li><li>Kali</li></ul>
+      </div>
+      <div class="pane"><div class="dev"><div class="in"><img src="img/t35.jpg" alt="Deity menu with a note on Krishna and the Tulsi mala" loading="lazy" decoding="async"></div></div></div>
+    </div>
+
+    <div class="feat flip">
+      <div class="copy">
+        <span class="eyebrow">Mantras</span>
+        <h3>Hear a mantra before you chant it.</h3>
+        <p>Each mantra comes with a short description and a play button, so you can listen to the pronunciation first. Mantras are listed in Sanskrit transliteration, such as Om Gam Ganapataye Namaha and Om Namah Shivaya.</p>
+      </div>
+      <div class="pane warm"><div class="dev"><div class="in"><img src="img/c82.jpg" alt="Mantra list with a description and a play button" loading="lazy" decoding="async"></div></div></div>
+    </div>
+
+    <div class="modes">
+      <article class="mode">
+        <div class="pane"><div class="dev"><div class="in"><img src="img/t1.jpg" alt="Manual Count screen with a rudraksha mala" loading="lazy" decoding="async"></div></div></div>
+        <h3><span class="ico"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="22" r="4" fill="currentColor"/><circle cx="24" cy="22" r="11"/><circle cx="24" cy="22" r="18"/></svg></span>Manual Count</h3>
+        <p>Tap once for each repetition. Lock the screen and tap anywhere, so you never have to look for a button.</p>
+      </article>
+      <article class="mode">
+        <div class="pane"><div class="dev"><div class="in"><img src="img/d157.jpg" alt="Voice Count with a level meter under the count" loading="lazy" decoding="async"></div></div></div>
+        <h3><span class="ico"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="18" y="5" width="12" height="23" rx="6"/><path d="M11 22a13 13 0 0 0 26 0M24 35v8M17 43h14"/></svg></span>Voice Count</h3>
+        <p>Chant aloud and the app counts each repetition from the sound of your voice. A small meter shows that it is listening.</p>
+      </article>
+      <article class="mode">
+        <div class="pane"><div class="dev"><div class="in"><img src="img/c174.jpg" alt="Record and Repeat screen asking you to recite the mantra once" loading="lazy" decoding="async"></div></div></div>
+        <h3><span class="ico"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="17"/><circle cx="24" cy="24" r="6" fill="currentColor"/></svg></span>Record &amp; Repeat</h3>
+        <p>Recite the mantra once. The app repeats your recording round after round while the mala counts for you.</p>
+      </article>
+    </div>
+
+    <div class="feat flip">
+      <div class="copy">
+        <span class="eyebrow">Malas</span>
+        <h3>Seventeen malas, each with its own beads.</h3>
+        <p>Choose the material you practise with. The mala fills the screen, one bead glows with each repetition, and a round is 108.</p>
+        <div class="swgroup">
+          <h4>Eight traditional malas</h4>
+          <ul class="sw">
+            <li><i style="--c:#7A4A2E"></i>Rudraksha</li>
+            <li><i style="--c:#5B4A2A"></i>Tulsi</li>
+            <li><i style="--c:#8E2F22"></i>Red Sandalwood</li>
+            <li><i style="--c:#B58A55"></i>Bodhi</li>
+            <li><i style="--c:#E2C9A0"></i>White Sandalwood</li>
+            <li><i style="--c:#6B6458"></i>Lotus Seeds</li>
+            <li><i style="--c:#EDE4D0"></i>Bone</li>
+            <li><i style="--c:#D4E6F2"></i>Sphatik (quartz)</li>
+          </ul>
+          <h4>Nine gemstone malas</h4>
+          <ul class="sw">
+            <li><i style="--c:#B3122E"></i>Ruby</li>
+            <li><i style="--c:#E7E1D6"></i>Pearl</li>
+            <li><i style="--c:#E4572E"></i>Red Coral</li>
+            <li><i style="--c:#1C8A5A"></i>Emerald</li>
+            <li><i style="--c:#E6B422"></i>Yellow Sapphire</li>
+            <li><i style="--c:#DDEBF5"></i>Diamond</li>
+            <li><i style="--c:#1B3F9A"></i>Blue Sapphire</li>
+            <li><i style="--c:#C8711A"></i>Hessonite</li>
+            <li><i style="--c:#7A7A2B"></i>Cat's Eye</li>
+          </ul>
+        </div>
+      </div>
+      <div class="pane"><div class="dev"><div class="in"><img src="img/c66.jpg" alt="Counting with the Sphatik quartz mala" loading="lazy" decoding="async"></div></div></div>
+    </div>
+
+    <div class="feat">
+      <div class="copy">
+        <span class="eyebrow">Video backgrounds</span>
+        <h3>A soft, moving backdrop for the counter.</h3>
+        <p>Choose a looping video and it plays gently behind the mala. Ganesha, Shiva, Nataraja, Krishna, Rama and Hanuman are among the many to pick from. You can also leave the screen plain.</p>
+      </div>
+      <div class="pane trio warm">
+        <div class="dev"><div class="in"><img src="img/c225.jpg" alt="Counting over a Ganesha video" loading="lazy" decoding="async"></div></div>
+        <div class="dev"><div class="in"><img src="img/t230.jpg" alt="Counting over a Shiva video" loading="lazy" decoding="async"></div></div>
+        <div class="dev"><div class="in"><img src="img/c238.jpg" alt="Counting over a Rama and Sita video" loading="lazy" decoding="async"></div></div>
+      </div>
+    </div>
+
+    <div class="feat flip">
+      <div class="copy">
+        <span class="eyebrow">Sound</span>
+        <h3>Drone, soundscapes and bells.</h3>
+        <p>Play a tanpura drone or a long soundscape while you count, with its own pause, stop and volume control. A bell sounds at the halfway point and a closing bell ends each round.</p>
+        <ul class="chips"><li>Taanpura</li><li>Deep Peace</li><li>Cosmos</li><li>Round bells</li></ul>
+      </div>
+      <div class="pane"><div class="dev"><div class="in"><img src="img/t215.jpg" alt="Soundscapes menu with play, pause, stop and volume" loading="lazy" decoding="async"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="tut">
+      <div class="copy">
+        <span class="eyebrow">Tutorial</span>
+        <h2>See every screen in four minutes.</h2>
+        <p>A walkthrough of the app, from choosing a deity and a mala to counting your first round.</p>
+      </div>
+      <div class="dev"><div class="in"><video controls preload="metadata" playsinline poster="img/t1.jpg" src="img/tutorial.mp4" aria-label="Dharma Japa video tutorial"></video></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="how">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">How it works</span>
+      <h2>From the first bead to the last.</h2>
+    </div>
+    <ol class="steps">
+      <li><h3>Choose deity, mantra and mala</h3><p>Pick a deity, read its note, hear the mantra, then choose the mala you practise with.</p></li>
+      <li><h3>Choose how to count</h3><p>Manual Count, Voice Count or Record &amp; Repeat. Add a drone or a video background if you want one.</p></li>
+      <li><h3>Chant a round of 108</h3><p>A bell sounds at the halfway point and again at the end. Set more rounds, or begin the next one.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Pricing</span>
+      <h2>Try it free. Unlock everything when you are ready.</h2>
+      <p class="lead">Premium is one license for your own use on up to two devices. If it is not for you, ask for a refund within 14 days.</p>
+    </div>
+    <div class="plans">
+      <div class="plan">
+        <span class="tag soft">Free</span>
+        <h3>Dharma Japa Lite</h3>
+        <div class="price"><strong>&euro;0</strong><span>no license needed</span></div>
+        <ul>
+          <li>Try the counter at no cost</li>
+          <li>Sphatik (quartz) mala</li>
+          <li>Taanpura drone</li>
+          <li>Preview of the locked video backgrounds</li>
+          <li>Runs in your browser and installs to your home screen</li>
+        </ul>
+        <a class="btn" href="https://dharma-japa-free.dharmaeterno.com/" target="_blank" rel="noopener">Open the free version</a>
+      </div>
+      <div class="plan main">
+        <span class="tag">Premium</span>
+        <h3>Dharma Japa Premium</h3>
+        <div class="price"><strong data-edit="price">&euro;12.90</strong><span>one-time purchase</span></div>
+        <ul>
+          <li>All eight traditional malas and nine gemstone malas</li>
+          <li>All deities, mantras and their notes</li>
+          <li>All soundscapes and video backgrounds</li>
+          <li>Manual Count, Voice Count and Record &amp; Repeat</li>
+          <li>Use on up to 2 devices, with the option to release one</li>
+          <li>License code sent to your email after purchase</li>
+          <li>14-day refund, see the <a href="#refund">refund policy</a></li>
+        </ul>
+        <a class="btn btn-primary" href="https://payhip.com/b/JiEve" target="_blank" rel="noopener">Buy Dharma Japa Premium</a>
+        <p class="fine">Prices are shown in euros. Taxes are calculated at checkout where they apply.</p>
+        <!-- Show this line only once Paddle is the live checkout (remove the hidden attribute). -->
+        <p class="fine" id="reseller" hidden>Our order process is conducted by our online reseller Paddle.com. Paddle.com is the Merchant of Record for all our orders. Paddle handles payment, invoicing, sales tax and refund processing. Product support is provided by us.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="maker">
+  <div class="wrap">
+    <div class="stack">
+      <span class="eyebrow">Who makes it</span>
+      <h2>An independent publisher of yogic and meditation content.</h2>
+    </div>
+    <div class="stack">
+      <p>Dharma Japa is made by Suria (Carlos Pombo), the creator of Dharma Eterno, an independent project in Spain that publishes meditation, mantra and music inspired by the yogic tradition.</p>
+      <p>The app grew from a simple need: a counter that is pleasant to look at and does not get in the way of practice. Questions and feedback are welcome at <strong data-edit="email">support@dharmaeterno.com</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Questions</span>
+      <h2>Good to know before you start.</h2>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>Is Dharma Japa a New Age or fortune-telling product?</summary>
+        <p>No. It makes no predictions, gives no readings and promises no results. It is a counter with sound and visual aids for japa, a repetition practice from the Hindu and yogic traditions.</p>
+      </details>
+      <details>
+        <summary>What is japa?</summary>
+        <p>Japa is the repetition of a mantra, spoken aloud, whispered or silent. Many practitioners count repetitions on a mala of 108 beads. Dharma Japa does the counting so you can stay with the sound.</p>
+      </details>
+      <details>
+        <summary>Which devices does it work on?</summary>
+        <p>Any phone, tablet or computer with a current browser. On iPhone and iPad, open it in Safari and choose Add to Home Screen. On Android, open it in Chrome and choose Install app. It then opens like any other app.</p>
+      </details>
+      <details>
+        <summary>Does Voice Count record my voice?</summary>
+        <p>No. Your browser asks for microphone permission the first time. The app measures the loudness of your voice on your own device to detect each repetition. Nothing is recorded or sent anywhere. Manual Count needs no microphone.</p>
+      </details>
+      <details>
+        <summary>What happens to the recording in Record &amp; Repeat?</summary>
+        <p>It stays in your browser while the app is open and is never uploaded. When you close the app, it is gone.</p>
+      </details>
+      <details>
+        <summary>What do I receive after buying Premium?</summary>
+        <p>A license code by email, together with the link to open the app. You sign in with your email and the code.</p>
+      </details>
+      <details>
+        <summary>Can I use it on more than one device?</summary>
+        <p>Yes, on up to two devices per license. You can release one device to sign in on another.</p>
+      </details>
+      <details>
+        <summary>What if it is not for me?</summary>
+        <p>Write to us within 14 days of purchase and we will refund you in full. The details are in the <a href="#refund">refund policy</a>.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <span class="eyebrow">Legal</span>
+    <h2 style="margin-top:12px">Terms, privacy and refunds</h2>
+    <nav class="legal-nav" aria-label="Legal documents">
+      <a class="btn btn-sm" href="#terms">Terms of Service</a>
+      <a class="btn btn-sm" href="#privacy">Privacy Policy</a>
+      <a class="btn btn-sm" href="#refund">Refund Policy</a>
+    </nav>
+
+    <article class="legal" id="terms">
+      <h3>Terms of Service</h3>
+      <p class="upd">Effective October 11, 2026</p>
+      <h4>1. Who we are</h4>
+      <p>Dharma Japa is published by Carlos Pombo (Suria), an independent publisher based in Spain ("we", "us"). You can reach us at <span data-edit="email">support@dharmaeterno.com</span>.</p>
+      <h4>2. The product</h4>
+      <p>Dharma Japa is a web application for counting mantra repetitions (japa). It is offered as a free version, Dharma Japa Lite, and a paid version, Dharma Japa Premium. Premium requires a license.</p>
+      <h4>3. License</h4>
+      <p>When you buy Premium we grant you a personal, non-exclusive, non-transferable license to use it on up to two devices. You agree not to share your license code, resell or sublicense the app, copy or extract its images, audio, video or text, or reverse engineer it.</p>
+      <h4>4. Price and payment</h4>
+      <p>The price is shown before you pay, in euros, and includes applicable taxes where the checkout adds them. Payment is handled by the payment provider named at checkout.</p>
+      <h4>5. Delivery</h4>
+      <p>Premium is a digital product. We send your license code to the email address you give at checkout, normally within minutes of payment.</p>
+      <h4>6. Refunds</h4>
+      <p>Our <a href="#refund">Refund Policy</a> applies to every purchase.</p>
+      <h4>7. Acceptable use</h4>
+      <p>Do not try to bypass the device limit or the license check, interfere with the service, or use the app for anything unlawful.</p>
+      <h4>8. Intellectual property</h4>
+      <p>The app and everything in it, including its design, images, audio, video and text, belongs to us or our licensors. Your license gives you the right to use it, and no ownership.</p>
+      <h4>9. Nature of the app</h4>
+      <p>Dharma Japa is a tool for a contemplative practice. It is not medical, psychological or therapeutic advice, and it makes no promise about health, wealth or any other outcome. Do not use it in situations where you need your full attention, such as while driving.</p>
+      <h4>10. Availability and changes</h4>
+      <p>We work to keep the app available and may update, improve or change features over time. The app is provided as is, without a guarantee that it will always be uninterrupted or free of errors.</p>
+      <h4>11. Liability</h4>
+      <p>To the extent the law allows, we are not liable for indirect or consequential loss arising from the use of the app. Nothing in these terms limits your rights as a consumer under the law of your country.</p>
+      <h4>12. Ending a license</h4>
+      <p>We may suspend a license that is used in breach of these terms. You may stop using the app at any time.</p>
+      <h4>13. Governing law</h4>
+      <p>These terms are governed by the law of Spain. Mandatory consumer protection rules of the country where you live continue to apply.</p>
+      <h4>14. Changes to these terms</h4>
+      <p>We may update these terms and will change the effective date above when we do. If you keep using the app after a change, you accept the updated terms.</p>
+    </article>
+
+    <article class="legal" id="privacy">
+      <h3>Privacy Policy</h3>
+      <p class="upd">Effective October 11, 2026</p>
+      <h4>Who is responsible</h4>
+      <p>Carlos Pombo (Suria), Spain, is the controller of your personal data. Contact: <span data-edit="email">support@dharmaeterno.com</span>.</p>
+      <h4>What we collect and why</h4>
+      <ul>
+        <li><strong>Email address and license code</strong>, to deliver your license and let you sign in to Premium. The license is checked with our license and payment provider.</li>
+        <li><strong>A random device identifier</strong>, stored in your browser and in our license database, to apply the two-device limit.</li>
+        <li><strong>Purchase details</strong> we receive from the payment provider, such as the order reference and country, to deliver your purchase and handle refunds and tax records.</li>
+        <li><strong>Messages you send us</strong>, to answer your questions.</li>
+      </ul>
+      <h4>Microphone and recordings</h4>
+      <p>Voice Count uses your microphone only while you are counting, and only after you give permission in your browser. The app measures the loudness of the signal on your device to detect each repetition. It does not record, store or send your voice. Record &amp; Repeat keeps your recording in your browser's memory while the app is open and never uploads it.</p>
+      <h4>Cookies and local storage</h4>
+      <p>To keep you signed in, the app uses one essential cookie that lasts up to one year, together with your browser's local storage and IndexedDB, which also remember your settings. We do not use advertising or analytics cookies, and we do not sell your data.</p>
+      <h4>Who processes data for us</h4>
+      <p>We use Cloudflare to host the app, a database service to store license, device and session records, an email service to deliver license codes, and a payment provider to take payment. They process data only to provide those services, and some may do so outside the European Economic Area under appropriate safeguards.</p>
+      <h4>Legal bases and retention</h4>
+      <p>We process data to carry out our contract with you, to meet legal obligations such as tax records, and for our legitimate interest in preventing misuse of licenses. We keep license records while your license is active and purchase records for as long as the law requires.</p>
+      <h4>Your rights</h4>
+      <p>You can ask for access to your data, correction, deletion, restriction, portability, or object to processing, by writing to us. You may also complain to the Spanish data protection authority, the Agencia Española de Protección de Datos.</p>
+      <h4>Children</h4>
+      <p>The app is not directed to children under 16 and we do not knowingly collect their data.</p>
+      <h4>Changes</h4>
+      <p>We will update the effective date above when we change this policy.</p>
+    </article>
+
+    <article class="legal" id="refund">
+      <h3>Refund Policy</h3>
+      <p class="upd">Effective October 11, 2026</p>
+      <h4>14 days, no questions</h4>
+      <p>If Dharma Japa Premium is not right for you, email us within 14 days of your purchase and we will refund the full price. You do not need to give a reason.</p>
+      <h4>How to ask</h4>
+      <p>Write to <span data-edit="email">support@dharmaeterno.com</span> from the email address you used to buy, and include your order reference if you have it.</p>
+      <h4>How the refund is paid</h4>
+      <p>The refund goes back to the original payment method. Depending on your bank or card, it can take several business days to appear. Once a refund is issued, your license is deactivated.</p>
+      <h4>Your legal rights</h4>
+      <p>This policy adds to the rights you have under consumer law and does not reduce them.</p>
+    </article>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <a class="brand" href="#top">Dharma Japa</a>
+      <p>A mantra counter built around the traditional 108-bead mala. Published by Carlos Pombo (Suria), Spain.</p>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="#tradition">The practice</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Legal and contact</h4>
+      <ul>
+        <li><a href="#terms">Terms of Service</a></li>
+        <li><a href="#privacy">Privacy Policy</a></li>
+        <li><a href="#refund">Refund Policy</a></li>
+        <li><span data-edit="email">support@dharmaeterno.com</span></li>
+      </ul>
+    </div>
+    <p class="small">&copy; 2026 Dharma Japa. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var g=document.getElementById('beads');
+  if(!g)return;
+  var total=109,R=240,cx=300,cy=300,litAt=55,out='';
+  for(var i=0;i<total;i++){
+    var a=-Math.PI/2+i*2*Math.PI/total,x=(cx+R*Math.cos(a)).toFixed(1),y=(cy+R*Math.sin(a)).toFixed(1);
+    if(i===0){
+      out+='<g stroke="#F2A01C" stroke-width="2.2" stroke-linecap="round" fill="none">'
+        +'<path d="M300 48 C292 36 288 24 286 10"/><path d="M300 48 C296 34 294 22 294 8"/><path d="M300 48 L300 6"/><path d="M300 48 C304 34 306 22 306 8"/><path d="M300 48 C308 36 312 24 314 10"/></g>'
+        +'<rect x="294" y="44" width="12" height="7" rx="2" fill="#B25E00"/>'
+        +'<circle cx="'+x+'" cy="'+y+'" r="13" fill="url(#gb)"/>';
+    }else if(i===litAt){
+      out+='<circle class="pulse" cx="'+x+'" cy="'+y+'" r="28" fill="url(#gh)"/><circle cx="'+x+'" cy="'+y+'" r="9.5" fill="url(#gl)"/>';
+    }else{
+      out+='<circle cx="'+x+'" cy="'+y+'" r="6.6" fill="url(#gb)"/>';
+    }
+  }
+  g.innerHTML=out;
+})();
+</script>
+
+</body>
+</html>
