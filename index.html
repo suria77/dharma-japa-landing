@@ -572,6 +572,7 @@ footer .foot-logo{width:200px;height:auto;display:block;margin-bottom:14px}
           <li>14-day refund, see the <a href="#refund">refund policy</a></li>
         </ul>
         <a class="btn btn-primary" href="https://payhip.com/b/JiEve" target="_blank" rel="noopener">Buy Dharma Japa Premium</a>
+        <button type="button" class="btn paddle-buy" style="margin-top:.8rem;width:100%;cursor:pointer">Buy with UPI, cards or local methods</button>
         <p class="fine">Prices are shown in euros. Taxes are calculated at checkout where they apply.</p>
       </div>
     </div>
@@ -775,5 +776,21 @@ footer .foot-logo{width:200px;height:auto;display:block;margin-bottom:14px}
 
 
 
+
+<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+<script>
+(function(){
+  var PRICE_ID='pri_01m4qq2yxw0anxtj47d93ftcm7';
+  try{ Paddle.Initialize({ token:'live_f445c658dfff9e41ddcc5c94783' }); }catch(e){}
+  var btns=document.querySelectorAll('.paddle-buy');
+  for(var i=0;i<btns.length;i++){
+    btns[i].addEventListener('click',function(){
+      try{
+        Paddle.Checkout.open({ items:[{ priceId:PRICE_ID, quantity:1 }], settings:{ displayMode:'overlay', theme:'light' } });
+      }catch(e){ window.open('https://payhip.com/b/JiEve','_blank'); }
+    });
+  }
+})();
+</script>
 </body>
 </html>
