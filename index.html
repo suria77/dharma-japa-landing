@@ -793,7 +793,11 @@ footer .foot-logo{width:200px;height:auto;display:block;margin-bottom:14px}
           var zips={IN:'110001',BR:'01310-100',MX:'06000',CO:'110111',AR:'C1002',CL:'8320000',PE:'15001',ID:'10110',PH:'1000',PK:'44000'};
           if(/^[A-Z]{2}$/.test(cc)){ opts.customer={ address:{ countryCode:cc, postalCode:q.get('zip')||zips[cc]||'' } }; }
         }catch(e){}
-        Paddle.Checkout.open(opts);
+        try{ Paddle.Checkout.open(opts); }
+        catch(e1){
+          console.error('Paddle open with test country failed', e1);
+          Paddle.Checkout.open({ items:[{ priceId:PRICE_ID, quantity:1 }], settings:{ displayMode:'overlay', theme:'light' } });
+        }
       }catch(e){ window.open('https://payhip.com/b/JiEve','_blank'); }
     });
   }
