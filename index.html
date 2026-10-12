@@ -791,7 +791,7 @@ footer .foot-logo{width:200px;height:auto;display:block;margin-bottom:14px}
           // Solo para pruebas: ?country=IN muestra los precios de ese pais sin VPN
           var q=new URLSearchParams(location.search), cc=(q.get('country')||'').toUpperCase();
           var zips={IN:'110001',BR:'01310-100',MX:'06000',CO:'110111',AR:'C1002',CL:'8320000',PE:'15001',ID:'10110',PH:'1000',PK:'44000'};
-          if(/^[A-Z]{2}$/.test(cc)){ opts.customer={ address:{ countryCode:cc, postalCode:q.get('zip')||zips[cc]||'' } }; }
+          if(/^[A-Z]{2}$/.test(cc)){ opts.customer={ email:q.get('email')||'prueba@example.com', address:{ countryCode:cc, postalCode:q.get('zip')||zips[cc]||'' } }; }
         }catch(e){}
         try{ Paddle.Checkout.open(opts); }
         catch(e1){
