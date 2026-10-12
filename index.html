@@ -2,15 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="theme-color" content="#0A0612">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Dharma Japa</title>
-<meta name="description" content="Dharma Japa is a mantra counter built around the traditional 108-bead mala. Choose a deity, a mantra and a mala, then count by voice, by hand or with your own recording.">
-<meta property="og:title" content="Dharma Japa">
-<meta property="og:description" content="A mantra counter built around the traditional 108-bead mala. Free version and Premium.">
-<meta property="og:type" content="website">
-<meta property="og:image" content="img/t230.jpg">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='19' fill='%23F2A01C'/%3E%3Ccircle cx='20' cy='20' r='12' fill='none' stroke='%2314183A' stroke-width='3' stroke-dasharray='2 4.2'/%3E%3C/svg%3E">
-
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Marcellus&family=Tiro+Devanagari+Hindi&display=swap">
 <style>
 /* Layout: pale indigo ground, big type, and the real app screens in dark glass phones that glow against it. The hero fans three phones in front of a slowly turning 108-bead mala. */
@@ -238,14 +232,81 @@ footer .small{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.2);padding
 @media (max-width:760px){footer .wrap{grid-template-columns:minmax(0,1fr)}}
 
 @media (prefers-reduced-motion:reduce){#spin,.pulse{animation:none}html{scroll-behavior:auto}.btn{transition:none}}
+
+/* ===== Dharmaeterno dark violet theme (overrides) ===== */
+:root{
+  --ground:#0A0612;--paper:#150D27;--tint:#100A20;--lilac:#241645;--warm:#2A1C4F;
+  --ink:#F3EDFF;--ink2:#CDC2EA;--line:#3B2B66;
+  --saffron:#E9B654;--saffron-hi:#F6CB74;--saffron-deep:#E9B654;
+  --indigo:#B9A0FF;--violet:#9A6BFF;--night:#07040E;--bead:#B98563;
+  --glow:#C8A2FF;color-scheme:dark;
+}
+body{background:var(--ground);background-image:radial-gradient(70% 40% at 50% 0%,rgba(120,70,220,.22),transparent 70%);background-repeat:no-repeat}
+:focus-visible{outline-color:var(--glow)}
+a{color:var(--glow)}
+.btn{border-color:var(--glow);color:var(--ink)}
+.btn:hover{background:rgba(185,160,255,.14)}
+.btn-primary{color:#1A0F33;background:linear-gradient(180deg,var(--saffron-hi),var(--saffron));border-color:var(--saffron);box-shadow:0 10px 30px -10px rgba(233,182,84,.7)}
+.btn-primary:hover{background:var(--saffron-hi);border-color:var(--saffron-hi);color:#1A0F33}
+.nav{background:rgba(10,6,18,.88);border-bottom-color:var(--line)}
+.nav-links a:not(.btn):hover{color:var(--glow)}
+.hero{background:radial-gradient(55% 70% at 78% 40%,rgba(138,84,255,.38) 0%,rgba(138,84,255,0) 70%),radial-gradient(40% 50% at 6% 0%,rgba(185,160,255,.18) 0%,rgba(185,160,255,0) 70%)}
+.hero h1 em{color:var(--glow);text-shadow:0 0 28px rgba(185,160,255,.45)}
+.hero-title{display:block;width:min(420px,78%);height:auto;margin:0 0 -4px;filter:drop-shadow(0 0 18px rgba(185,140,255,.35))}
+.pill{background:rgba(36,22,69,.7);border-color:var(--line);box-shadow:none;color:var(--ink)}
+.pill i{background:var(--glow);box-shadow:0 0 10px var(--glow)}
+.dev{box-shadow:0 34px 70px -22px rgba(0,0,0,.9),0 0 50px -8px rgba(138,84,255,.45),inset 0 0 0 1.5px rgba(200,162,255,.35)}
+.facts .wrap{background:linear-gradient(180deg,#1B1133,#130B24);border-color:var(--line);box-shadow:0 24px 60px -30px rgba(120,70,220,.6)}
+.facts b{color:var(--glow);text-shadow:0 0 22px rgba(185,160,255,.4)}
+.tradition{background:linear-gradient(180deg,#110A21,#0C0718);border-color:var(--line)}
+.deva{color:var(--glow);text-shadow:0 0 36px rgba(185,140,255,.5)}
+.scope>div{background:rgba(36,22,69,.45);border-color:var(--line)}
+.scope li::before{background:var(--glow)}
+.scope li::after{border-color:#1A0F33}
+.scope .no li::before{background:transparent;border-color:var(--ink2)}
+.pane{background:radial-gradient(circle at 50% 38%,#3B2370 0%,#1D1238 58%,#120A26 100%);border-color:var(--line)}
+.pane.warm{background:radial-gradient(circle at 50% 38%,#4A2C7A 0%,#22143F 58%,#140B28 100%)}
+.chips li{background:rgba(36,22,69,.8);border-color:var(--line);color:var(--ink)}
+.mode{background:var(--paper);border-color:var(--line)}
+.ico{background:var(--warm);color:var(--saffron)}
+.sw i{box-shadow:0 0 0 1px rgba(255,255,255,.18),0 3px 10px rgba(0,0,0,.6)}
+.tut{background-color:#0D0720;border:1px solid var(--line);background-image:radial-gradient(50% 70% at 85% 30%,rgba(138,84,255,.55),rgba(138,84,255,0))}
+.how{background:var(--tint)}
+.steps li::before{color:var(--glow)}
+.plan{background:var(--paper);border-color:var(--line)}
+.plan.main{border:2px solid var(--saffron);background:linear-gradient(180deg,#24153F 0%,#160D2A 100%);box-shadow:0 30px 70px -34px rgba(233,182,84,.55),0 0 60px -20px rgba(138,84,255,.5)}
+.plan .tag{background:var(--saffron);color:#1A0F33}
+.plan .tag.soft{background:var(--lilac);color:var(--ink)}
+.plan li::before{border-color:var(--glow)}
+.faq details{background:var(--paper);border-color:var(--line)}
+.faq summary::after{background:var(--lilac);color:var(--glow)}
+.maker{background:linear-gradient(180deg,#110A21,#0C0718);border-color:var(--line)}
+.maker-art{display:flex;flex-direction:column;align-items:center;gap:18px}
+.maker-art .ganesha{width:min(300px,70%);height:auto;filter:drop-shadow(0 0 26px rgba(150,100,255,.5))}
+.maker-art .logo{width:min(260px,70%);height:auto}
+.legal{border-top-color:var(--line)}
+footer{background:#06030C;border-top:1px solid var(--line);color:var(--ink)}
+footer h4{color:var(--saffron)}
+footer a{color:var(--glow)}
+footer p{color:var(--ink2)}
+footer .small{border-top-color:var(--line)}
+footer .foot-logo{width:200px;height:auto;display:block;margin-bottom:14px}
+.om-mark{position:absolute;right:-4%;top:-6%;width:34%;opacity:.16;pointer-events:none}
+@media (max-width:560px){.hero-title{width:72%}}
+
+.spin-mala{position:absolute;left:-4%;top:6%;width:108%;height:auto;aspect-ratio:1;max-width:none;opacity:.95;animation:spin 240s linear infinite;filter:drop-shadow(0 0 24px rgba(150,100,255,.45))}
+.brand img{width:40px;height:40px;border-radius:10px;flex:none;box-shadow:0 0 14px rgba(150,100,255,.55)}
+.sw{grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:18px 10px}
+.sw img{display:block;width:84px;height:84px;object-fit:contain;filter:drop-shadow(0 4px 8px rgba(0,0,0,.6))}
 </style>
 </head>
 <body>
 
+
 <header class="nav">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="Dharma Japa home">
-      <svg viewBox="0 0 40 40" aria-hidden="true"><g fill="#8A5236"><circle cx="20" cy="4" r="3.4" fill="#F2A01C"/><circle cx="26.8" cy="5.4" r="2.2"/><circle cx="32.6" cy="9.4" r="2.2"/><circle cx="36" cy="15.4" r="2.2"/><circle cx="36" cy="22.6" r="2.2"/><circle cx="32.6" cy="28.6" r="2.2"/><circle cx="26.8" cy="32.6" r="2.2"/><circle cx="20" cy="34" r="2.2"/><circle cx="13.2" cy="32.6" r="2.2"/><circle cx="7.4" cy="28.6" r="2.2"/><circle cx="4" cy="22.6" r="2.2"/><circle cx="4" cy="15.4" r="2.2"/><circle cx="7.4" cy="9.4" r="2.2"/><circle cx="13.2" cy="5.4" r="2.2"/></g></svg>
+      <img src="img/icon-96.png" alt="" width="40" height="40">
       Dharma Japa
     </a>
     <nav class="nav-links" aria-label="Main">
@@ -264,6 +325,7 @@ footer .small{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.2);padding
 <section class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
+      <img class="hero-title" src="img/dharma-japa-title.png" alt="Dharma Japa" width="640" height="154">
       <span class="pill"><i></i> Mantra counter for iPhone, iPad and Android</span>
       <h1>Count your japa. <em>Keep your attention on the mantra.</em></h1>
       <p class="lead">Dharma Japa is a mantra counter built around the traditional 108-bead mala. Choose a deity, a mantra and a mala, then count by voice, by hand, or with your own recording.</p>
@@ -279,17 +341,7 @@ footer .small{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.2);padding
     </div>
 
     <div class="fan">
-      <svg viewBox="0 0 600 600" aria-hidden="true">
-        <defs>
-          <radialGradient id="gb" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#C98A63"/><stop offset=".55" stop-color="#8A5236"/><stop offset="1" stop-color="#4A2616"/></radialGradient>
-          <radialGradient id="gl" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#FFE3A3"/><stop offset=".5" stop-color="#F2A01C"/><stop offset="1" stop-color="#B25E00"/></radialGradient>
-          <radialGradient id="gh" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#F2A01C" stop-opacity=".6"/><stop offset="1" stop-color="#F2A01C" stop-opacity="0"/></radialGradient>
-        </defs>
-        <g id="spin">
-          <circle cx="300" cy="300" r="240" fill="none" stroke="#B9A48F" stroke-width="1.6"/>
-          <g id="beads"></g>
-        </g>
-      </svg>
+      <img class="spin-mala" src="img/mala-hero.webp" alt="" width="720" height="720" decoding="async">
       <div class="d d1"><div class="dev"><div class="in"><img src="img/c238.jpg" alt="Dharma Japa counting with a Rama and Sita video background" decoding="async"></div></div></div>
       <div class="d d2"><div class="dev"><div class="in"><video src="img/hero.mp4" poster="img/c225.jpg" autoplay muted loop playsinline preload="auto" aria-label="Dharma Japa counting a round of 108 with a video background"></video></div></div></div>
       <div class="d d3"><div class="dev"><div class="in"><img src="img/t35.jpg" alt="Dharma Japa deity menu with a short note on Krishna" decoding="async"></div></div></div>
@@ -398,26 +450,26 @@ footer .small{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.2);padding
         <div class="swgroup">
           <h4>Eight traditional malas</h4>
           <ul class="sw">
-            <li><i style="--c:#7A4A2E"></i>Rudraksha</li>
-            <li><i style="--c:#5B4A2A"></i>Tulsi</li>
-            <li><i style="--c:#8E2F22"></i>Red Sandalwood</li>
-            <li><i style="--c:#B58A55"></i>Bodhi</li>
-            <li><i style="--c:#E2C9A0"></i>White Sandalwood</li>
-            <li><i style="--c:#6B6458"></i>Lotus Seeds</li>
-            <li><i style="--c:#EDE4D0"></i>Bone</li>
-            <li><i style="--c:#D4E6F2"></i>Sphatik (quartz)</li>
+            <li><img src="img/mala-rudraksha.webp" alt="" width="220" height="220" loading="lazy">Rudraksha</li>
+            <li><img src="img/mala-tulsi.webp" alt="" width="220" height="220" loading="lazy">Tulsi</li>
+            <li><img src="img/mala-red-sandalwood.webp" alt="" width="220" height="220" loading="lazy">Red Sandalwood</li>
+            <li><img src="img/mala-bodhi.webp" alt="" width="220" height="220" loading="lazy">Bodhi</li>
+            <li><img src="img/mala-white-sandalwood.webp" alt="" width="220" height="220" loading="lazy">White Sandalwood</li>
+            <li><img src="img/mala-lotus.webp" alt="" width="220" height="220" loading="lazy">Lotus Seeds</li>
+            <li><img src="img/mala-bone.webp" alt="" width="220" height="220" loading="lazy">Bone</li>
+            <li><img src="img/mala-sphatik.webp" alt="" width="220" height="220" loading="lazy">Sphatik (quartz)</li>
           </ul>
           <h4>Nine gemstone malas</h4>
           <ul class="sw">
-            <li><i style="--c:#B3122E"></i>Ruby</li>
-            <li><i style="--c:#E7E1D6"></i>Pearl</li>
-            <li><i style="--c:#E4572E"></i>Red Coral</li>
-            <li><i style="--c:#1C8A5A"></i>Emerald</li>
-            <li><i style="--c:#E6B422"></i>Yellow Sapphire</li>
-            <li><i style="--c:#DDEBF5"></i>Diamond</li>
-            <li><i style="--c:#1B3F9A"></i>Blue Sapphire</li>
-            <li><i style="--c:#C8711A"></i>Hessonite</li>
-            <li><i style="--c:#7A7A2B"></i>Cat's Eye</li>
+            <li><img src="img/mala-ruby.webp" alt="" width="220" height="220" loading="lazy">Ruby</li>
+            <li><img src="img/mala-pearl.webp" alt="" width="220" height="220" loading="lazy">Pearl</li>
+            <li><img src="img/mala-coral.webp" alt="" width="220" height="220" loading="lazy">Red Coral</li>
+            <li><img src="img/mala-emerald.webp" alt="" width="220" height="220" loading="lazy">Emerald</li>
+            <li><img src="img/mala-yellow-sapphire.webp" alt="" width="220" height="220" loading="lazy">Yellow Sapphire</li>
+            <li><img src="img/mala-diamond.webp" alt="" width="220" height="220" loading="lazy">Diamond</li>
+            <li><img src="img/mala-blue-sapphire.webp" alt="" width="220" height="220" loading="lazy">Blue Sapphire</li>
+            <li><img src="img/mala-hessonite.webp" alt="" width="220" height="220" loading="lazy">Hessonite</li>
+            <li><img src="img/mala-cats-eye.webp" alt="" width="220" height="220" loading="lazy">Cat's Eye</li>
           </ul>
         </div>
       </div>
@@ -522,10 +574,11 @@ footer .small{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.2);padding
     <div class="stack">
       <span class="eyebrow">Who makes it</span>
       <h2>An independent publisher of yogic and meditation content.</h2>
+      <div class="maker-art"><img class="ganesha" src="img/ganesha_violeta_transparente.png" alt="" width="520" height="571" loading="lazy"></div>
     </div>
     <div class="stack">
-      <p>Dharma Japa is made by Suria (Carlos Pombo), the creator of Dharma Eterno, an independent project in Spain that publishes meditation, mantra and music inspired by the yogic tradition.</p>
-      <p>The app grew from a simple need: a counter that is pleasant to look at and does not get in the way of practice. Questions and feedback are welcome at <strong data-edit="email">support@dharmaeterno.com</strong>.</p>
+      <p>Dharma Japa is made by Carlos Pombo, the creator of Dharma Eterno, an independent project in Spain that publishes meditation, mantra and music inspired by the yogic tradition.</p>
+      <p>The app grew from a simple need: a counter that is pleasant to look at and does not get in the way of practice. Questions and feedback are welcome at <strong data-edit="email">dharmaeterno@dharmaeterno.com</strong>.</p>
     </div>
   </div>
 </section>
@@ -587,7 +640,7 @@ footer .small{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.2);padding
       <h3>Terms of Service</h3>
       <p class="upd">Effective October 11, 2026</p>
       <h4>1. Who we are</h4>
-      <p>Dharma Japa is published by Carlos Pombo (Suria), an independent publisher based in Spain ("we", "us"). You can reach us at <span data-edit="email">support@dharmaeterno.com</span>.</p>
+      <p>Dharma Japa is published by Carlos Pombo, an independent publisher based in Spain ("we", "us"). You can reach us at <span data-edit="email">dharmaeterno@dharmaeterno.com</span>.</p>
       <h4>2. The product</h4>
       <p>Dharma Japa is a web application for counting mantra repetitions (japa). It is offered as a free version, Dharma Japa Lite, and a paid version, Dharma Japa Premium. Premium requires a license.</p>
       <h4>3. License</h4>
@@ -620,7 +673,7 @@ footer .small{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.2);padding
       <h3>Privacy Policy</h3>
       <p class="upd">Effective October 11, 2026</p>
       <h4>Who is responsible</h4>
-      <p>Carlos Pombo (Suria), Spain, is the controller of your personal data. Contact: <span data-edit="email">support@dharmaeterno.com</span>.</p>
+      <p>Carlos Pombo, Spain, is the controller of your personal data. Contact: <span data-edit="email">dharmaeterno@dharmaeterno.com</span>.</p>
       <h4>What we collect and why</h4>
       <ul>
         <li><strong>Email address and license code</strong>, to deliver your license and let you sign in to Premium. The license is checked with our license and payment provider.</li>
@@ -650,7 +703,7 @@ footer .small{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.2);padding
       <h4>14 days, no questions</h4>
       <p>If Dharma Japa Premium is not right for you, email us within 14 days of your purchase and we will refund the full price. You do not need to give a reason.</p>
       <h4>How to ask</h4>
-      <p>Write to <span data-edit="email">support@dharmaeterno.com</span> from the email address you used to buy, and include your order reference if you have it.</p>
+      <p>Write to <span data-edit="email">dharmaeterno@dharmaeterno.com</span> from the email address you used to buy, and include your order reference if you have it.</p>
       <h4>How the refund is paid</h4>
       <p>The refund goes back to the original payment method. Depending on your bank or card, it can take several business days to appear. Once a refund is issued, your license is deactivated.</p>
       <h4>Your legal rights</h4>
@@ -664,8 +717,9 @@ footer .small{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.2);padding
 <footer>
   <div class="wrap">
     <div>
+      <img class="foot-logo" src="img/cropped-LOGO-transparente.png" alt="Dharma Eterno" width="480" height="156" loading="lazy">
       <a class="brand" href="#top">Dharma Japa</a>
-      <p>A mantra counter built around the traditional 108-bead mala. Published by Carlos Pombo (Suria), Spain.</p>
+      <p>A mantra counter built around the traditional 108-bead mala. Published by Carlos Pombo, Spain.</p>
     </div>
     <div>
       <h4>Explore</h4>
@@ -682,34 +736,14 @@ footer .small{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.2);padding
         <li><a href="#terms">Terms of Service</a></li>
         <li><a href="#privacy">Privacy Policy</a></li>
         <li><a href="#refund">Refund Policy</a></li>
-        <li><span data-edit="email">support@dharmaeterno.com</span></li>
+        <li><span data-edit="email">dharmaeterno@dharmaeterno.com</span></li>
       </ul>
     </div>
     <p class="small">&copy; 2026 Dharma Japa. All rights reserved.</p>
   </div>
 </footer>
 
-<script>
-(function(){
-  var g=document.getElementById('beads');
-  if(!g)return;
-  var total=109,R=240,cx=300,cy=300,litAt=55,out='';
-  for(var i=0;i<total;i++){
-    var a=-Math.PI/2+i*2*Math.PI/total,x=(cx+R*Math.cos(a)).toFixed(1),y=(cy+R*Math.sin(a)).toFixed(1);
-    if(i===0){
-      out+='<g stroke="#F2A01C" stroke-width="2.2" stroke-linecap="round" fill="none">'
-        +'<path d="M300 48 C292 36 288 24 286 10"/><path d="M300 48 C296 34 294 22 294 8"/><path d="M300 48 L300 6"/><path d="M300 48 C304 34 306 22 306 8"/><path d="M300 48 C308 36 312 24 314 10"/></g>'
-        +'<rect x="294" y="44" width="12" height="7" rx="2" fill="#B25E00"/>'
-        +'<circle cx="'+x+'" cy="'+y+'" r="13" fill="url(#gb)"/>';
-    }else if(i===litAt){
-      out+='<circle class="pulse" cx="'+x+'" cy="'+y+'" r="28" fill="url(#gh)"/><circle cx="'+x+'" cy="'+y+'" r="9.5" fill="url(#gl)"/>';
-    }else{
-      out+='<circle cx="'+x+'" cy="'+y+'" r="6.6" fill="url(#gb)"/>';
-    }
-  }
-  g.innerHTML=out;
-})();
-</script>
+
 
 </body>
 </html>
