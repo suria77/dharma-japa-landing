@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="theme-color" content="#F4F5FC">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Your Dharma Japa licence</title>
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="preload" href="fonts/HankenGrotesk-var.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="fonts/Marcellus-Regular.woff" as="font" type="font/woff" crossorigin>
+<style>
+@font-face{font-family:'Hanken Grotesk';src:url(fonts/HankenGrotesk-var.woff) format('woff');font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:'Marcellus';src:url(fonts/Marcellus-Regular.woff) format('woff');font-weight:400;font-style:normal;font-display:swap}
+
+:root{
+  --ground:#F4F5FC;
+  --paper:#FFFFFF;
+  --lilac:#EFEAFB;
+  --warm:#FFEFD2;
+  --ink:#14183A;
+  --ink2:#4A5078;
+  --line:#D0D5EC;
+  --saffron:#F2A01C;
+  --saffron-hi:#FFB43F;
+  --saffron-deep:#9A5000;
+  --indigo:#2B3190;
+  --violet:#6A3FD0;
+  --f-display:'Marcellus',Georgia,serif;
+  --f-body:'Hanken Grotesk','Helvetica Neue',Arial,sans-serif;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  min-height:100vh;
+  font-family:var(--f-body);
+  color:var(--ink);
+  background:
+    radial-gradient(1100px 620px at 50% -12%, var(--lilac) 0%, transparent 62%),
+    radial-gradient(760px 480px at 108% 8%, var(--warm) 0%, transparent 58%),
+    var(--ground);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:clamp(28px,6vw,64px) 16px clamp(40px,8vw,80px);
+}
+
+.logo{width:168px;height:auto;display:block;margin:0 auto clamp(20px,4vw,34px);opacity:.92}
+
+.card{
+  width:100%;max-width:580px;
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:28px;
+  padding:clamp(26px,5vw,44px);
+  box-shadow:0 30px 70px -40px rgba(20,24,58,.55);
+  text-align:center;
+}
+
+.eyebrow{
+  display:inline-block;font-size:.78rem;font-weight:800;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--saffron-deep);
+}
+h1{
+  font-family:var(--f-display);font-weight:400;
+  font-size:clamp(1.9rem,6vw,2.7rem);line-height:1.12;
+  margin:12px 0 10px;
+}
+.lead{margin:0 auto;max-width:42ch;font-size:1.06rem;line-height:1.6;color:var(--ink2)}
+
+/* --- estado: esperando --- */
+.wait{display:grid;place-items:center;gap:18px;padding:22px 0 6px}
+.mala{position:relative;width:62px;height:62px}
+.mala span{
+  position:absolute;top:50%;left:50%;width:9px;height:9px;margin:-4.5px;
+  border-radius:50%;background:var(--violet);opacity:.25;
+  animation:bead 1.5s linear infinite;
+}
+@keyframes bead{0%,100%{opacity:.18;transform:scale(.8)}35%{opacity:1;transform:scale(1.18)}}
+.note{font-size:.96rem;color:var(--ink2);margin:0}
+
+/* --- estado: licencia --- */
+.key-label{margin:26px 0 8px;font-size:.8rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2)}
+.key{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:clamp(1.15rem,4.6vw,1.6rem);font-weight:700;letter-spacing:.09em;
+  word-break:break-all;
+  background:linear-gradient(180deg,#FBF8FF,var(--lilac));
+  border:1px solid #D9CCF5;border-radius:16px;
+  padding:18px 16px;margin:0 0 6px;
+  color:#2B1050;
+}
+.mail{margin:14px 0 0;font-size:.98rem;color:var(--ink2)}
+.mail b{color:var(--ink);word-break:break-all}
+
+.btn-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:26px}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.5em;
+  min-height:54px;padding:.75em 1.6em;border-radius:999px;
+  font-family:var(--f-body);font-weight:700;font-size:1.02rem;
+  text-decoration:none;cursor:pointer;
+  border:2px solid var(--ink);color:var(--ink);background:transparent;
+  transition:transform .15s ease,background .15s ease,box-shadow .15s ease;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--saffron);border-color:var(--saffron);box-shadow:0 10px 24px -10px rgba(242,160,28,.9)}
+.btn-primary:hover{background:var(--saffron-hi);border-color:var(--saffron-hi)}
+
+.steps{
+  margin:30px 0 0;padding:22px 20px;text-align:left;
+  background:#FBFBFE;border:1px solid var(--line);border-radius:18px;
+}
+.steps h2{font-family:var(--f-body);font-size:.8rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--saffron-deep);margin:0 0 12px}
+.steps ol{margin:0;padding-left:20px;display:grid;gap:9px}
+.steps li{font-size:1rem;line-height:1.55;color:var(--ink2)}
+.steps a{color:var(--indigo)}
+
+.help{margin:26px auto 0;max-width:46ch;font-size:.95rem;line-height:1.6;color:var(--ink2)}
+.help a{color:var(--indigo)}
+
+.foot{margin-top:30px;font-size:.84rem;color:var(--ink2);opacity:.75;text-align:center}
+.foot a{color:inherit}
+
+.hide{display:none!important}
+.err{color:#9A2222}
+@media (prefers-reduced-motion:reduce){.mala span{animation:none;opacity:.6}.btn:hover{transform:none}}
+</style>
+</head>
+<body>
+
+<img class="logo" src="img/cropped-LOGO-transparente.png" alt="Dharma Eterno" width="480" height="156">
+
+<main class="card">
+
+  <!-- Esperando a que Paddle confirme el pedido -->
+  <section id="s-wait">
+    <span class="eyebrow">Payment received</span>
+    <h1>Preparing your licence</h1>
+    <p class="lead">This takes a few seconds. Please keep this page open.</p>
+    <div class="wait">
+      <div class="mala" id="mala" aria-hidden="true"></div>
+      <p class="note" id="wait-note">Confirming your order&hellip;</p>
+    </div>
+  </section>
+
+  <!-- Licencia lista -->
+  <section id="s-ready" class="hide">
+    <span class="eyebrow">Thank you</span>
+    <h1>Your licence is ready</h1>
+    <p class="lead">Keep this key. You will need it the first time you open the app on each device.</p>
+
+    <p class="key-label">Licence key</p>
+    <p class="key" id="key">&nbsp;</p>
+    <p class="mail">Sign in with this email: <b id="email"></b></p>
+
+    <div class="btn-row">
+      <button type="button" class="btn btn-primary" id="copy">Copy licence key</button>
+      <a class="btn" id="open-app" href="https://dharma-japa.dharmaeterno.com">Open the app</a>
+    </div>
+
+    <div class="steps">
+      <h2>What to do now</h2>
+      <ol>
+        <li>Copy the licence key above.</li>
+        <li>Open the app and sign in with your email and the key.</li>
+        <li>Install it on your phone with the <a href="index.html#install">installation guide</a>. The licence works on up to two of your own devices.</li>
+      </ol>
+    </div>
+
+    <p class="help" id="mail-note">We have also sent the key to your email. If it is not in your inbox, check your spam folder.</p>
+  </section>
+
+  <!-- Pedido reembolsado -->
+  <section id="s-refunded" class="hide">
+    <span class="eyebrow">Order refunded</span>
+    <h1>This order was refunded</h1>
+    <p class="lead">The licence for this order is no longer active. If you think this is a mistake, write to us and we will sort it out.</p>
+    <div class="btn-row"><a class="btn btn-primary" href="mailto:dharmaeterno@dharmaeterno.com">Write to us</a></div>
+  </section>
+
+  <!-- No se pudo mostrar -->
+  <section id="s-error" class="hide">
+    <span class="eyebrow">Payment received</span>
+    <h1>We could not show your licence here</h1>
+    <p class="lead">Your payment went through and your licence has been created. We have emailed it to the address you used at checkout &mdash; please check your inbox and your spam folder.</p>
+    <p class="help">If it has not arrived in a few minutes, write to <a href="mailto:dharmaeterno@dharmaeterno.com">dharmaeterno@dharmaeterno.com</a> with your order reference <b id="err-txn"></b> and we will send it straight away.</p>
+    <div class="btn-row"><a class="btn btn-primary" href="mailto:dharmaeterno@dharmaeterno.com">Write to us</a></div>
+  </section>
+
+</main>
+
+<p class="foot">Dharma Japa &middot; <a href="index.html">dharmajapa.dharmaeterno.com</a></p>
+
+<script>
+(function () {
+  var API = 'https://dharma-japa.dharmaeterno.com/api/paddle-license';
+  var APP = 'https://dharma-japa.dharmaeterno.com';
+
+  // Cuentas de mala girando mientras se espera
+  var mala = document.getElementById('mala');
+  if (mala) {
+    for (var i = 0; i < 8; i++) {
+      var b = document.createElement('span');
+      var a = (i / 8) * Math.PI * 2;
+      b.style.transform = 'translate(' + (Math.cos(a) * 24).toFixed(1) + 'px,' + (Math.sin(a) * 24).toFixed(1) + 'px)';
+      b.style.animationDelay = (i * 0.1875) + 's';
+      mala.appendChild(b);
+    }
+  }
+
+  function show(id) {
+    ['s-wait', 's-ready', 's-refunded', 's-error'].forEach(function (s) {
+      document.getElementById(s).classList.toggle('hide', s !== id);
+    });
+  }
+
+  // El número de pedido llega en ?txn=... (lo pone la página de ventas al terminar
+  // el pago). Se guarda por si el comprador recarga o vuelve más tarde.
+  var params = new URLSearchParams(location.search);
+  var txn = (params.get('txn') || params.get('_ptxn') || '').trim();
+  try {
+    if (txn) localStorage.setItem('jp_last_txn', txn);
+    else txn = localStorage.getItem('jp_last_txn') || '';
+  } catch (e) {}
+
+  if (!/^txn_[A-Za-z0-9]{10,60}$/.test(txn)) {
+    document.getElementById('err-txn').textContent = '(not available)';
+    show('s-error');
+    return;
+  }
+  document.getElementById('err-txn').textContent = txn;
+
+  var tries = 0;
+  var MAX_TRIES = 25;          // unos 75 segundos
+  var note = document.getElementById('wait-note');
+
+  function ask() {
+    tries++;
+    fetch(API + '?txn=' + encodeURIComponent(txn), { cache: 'no-store' })
+      .then(function (r) { return r.json().catch(function () { return { status: 'error' }; }); })
+      .then(function (d) {
+        if (d && d.status === 'ready') return ready(d);
+        if (d && d.status === 'refunded') return show('s-refunded');
+        again();
+      })
+      .catch(again);
+  }
+
+  function again() {
+    if (tries >= MAX_TRIES) return show('s-error');
+    if (tries === 5 && note) note.textContent = 'Still confirming. This can take up to a minute…';
+    if (tries === 14 && note) note.textContent = 'Almost there. Please keep this page open…';
+    setTimeout(ask, tries < 6 ? 2000 : 4000);
+  }
+
+  function ready(d) {
+    document.getElementById('key').textContent = d.key;
+    document.getElementById('email').textContent = d.email || '';
+    document.getElementById('open-app').href = APP;
+    if (!d.emailed) {
+      document.getElementById('mail-note').innerHTML =
+        'Please save this key now. If you lose it, write to ' +
+        '<a href="mailto:dharmaeterno@dharmaeterno.com">dharmaeterno@dharmaeterno.com</a> and we will send it again.';
+    }
+    show('s-ready');
+    try { localStorage.setItem('jp_last_key', d.key); } catch (e) {}
+  }
+
+  var copy = document.getElementById('copy');
+  copy.addEventListener('click', function () {
+    var text = document.getElementById('key').textContent.trim();
+    var done = function () {
+      copy.textContent = 'Copied';
+      setTimeout(function () { copy.textContent = 'Copy licence key'; }, 2200);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else { fallback(); }
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); done(); } catch (e) {}
+      ta.remove();
+    }
+  });
+
+  ask();
+})();
+</script>
+</body>
+</html>

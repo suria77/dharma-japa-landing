@@ -787,7 +787,21 @@ footer .foot-logo{width:200px;height:auto;display:block;margin-bottom:14px}
 <script>
 (function(){
   var PRICE_ID='pri_01m4qq2yxw0anxtj47d93ftcm7';
-  try{ Paddle.Initialize({ token:'live_f445c658dfff9e41ddcc5c94783' }); }catch(e){}
+  // Al terminar el pago, Paddle nos avisa aquí. Llevamos al comprador a la página
+  // de gracias con su número de pedido, y allí se le enseña la licencia en pantalla
+  // (además del correo, que puede tardar o caer en spam).
+  function alTerminarPago(ev){
+    try{
+      if(!ev || ev.name!=='checkout.completed') return;
+      var id = ev.data && (ev.data.transaction_id || ev.data.id);
+      if(!id) return;
+      try{ localStorage.setItem('jp_last_txn', id); }catch(e){}
+      setTimeout(function(){
+        location.href = 'thank-you.html?txn=' + encodeURIComponent(id);
+      }, 1200);
+    }catch(e){}
+  }
+  try{ Paddle.Initialize({ token:'live_f445c658dfff9e41ddcc5c94783', eventCallback: alTerminarPago }); }catch(e){}
   var btns=document.querySelectorAll('.paddle-buy');
   for(var i=0;i<btns.length;i++){
     btns[i].addEventListener('click',function(){
